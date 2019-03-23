@@ -1,5 +1,7 @@
 package com.tutorialspoint;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -33,11 +35,19 @@ public class HelloController{
    }
    @RequestMapping(value ="/saveUser",method = RequestMethod.POST)
    public String saveUser(@ModelAttribute("user") User user, ModelMap model) {
-		
+	  user.setID((int)(Math.random() * ((5000 - 100) + 1)) + 100);
 	  userDAO.save(user);
 	   System.out.println("FirstName : " + user.getNAME());
       model.addAttribute("message", "CHello Spring MVC Framework!");
       return "hello";
+   }
+   
+   @RequestMapping(value ="/dispAllUsers",method = RequestMethod.GET)
+   public String dispAllUsers(ModelMap model) {
+		
+	  Map<String, String> resultMap = userDAO.getAllUsers();
+      model.addAttribute("resultMap", resultMap);
+      return "displayUsers";
    }
 
 }

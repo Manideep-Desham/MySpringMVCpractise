@@ -16,16 +16,10 @@ public class testClass {
 		 UserService userService = (UserService) ctx.getBean("userService");
 		 userService.saveUser(null) ;*/
 		 
-		 ApplicationContext ctx = new ClassPathXmlApplicationContext(
-	                "user-beans.xml");
+		 ApplicationContext ctx = new ClassPathXmlApplicationContext("user-beans.xml");
 		 UserDAO userDAO = (UserDAO) ctx.getBean("userDAO");
 		
-		User u = new User();
-		u.setID(102);
-		u.setNAME("Kakak");
-		u.setADDRESS("Mumbai");
-		
-		userDAO.save(u);
+		 userDAO.getAllUsers();
 		
 
 	}

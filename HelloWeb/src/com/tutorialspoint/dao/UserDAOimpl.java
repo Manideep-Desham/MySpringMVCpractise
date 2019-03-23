@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,19 +47,15 @@ public class UserDAOimpl implements UserDAO{
 	}
 
 	@Override
-	public Map<String, String> getAllUsers() {
+	public HashMap <String,String>  getAllUsers() {
 		MyDataSource datasource = new MyDataSource();
-		Map<String, String> resultMap = null ;
+		HashMap <String,String> map = new HashMap <String,String>() ;
 		String query = "SELECT * FROM \"contactAppSchema\".USER;" ;
 		try {
 			Connection con = datasource.getMyConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			while ( rs.next() ) {
-	            String  name = rs.getString("name");
-	            String  address = rs.getString("address");
-	            resultMap.put(name, address) ;
-	         }
+			while ( rs.next() ) { map.put(rs.getString("name"), rs.getString("address")); }
 			con.close();
 			
 			
@@ -67,7 +64,7 @@ public class UserDAOimpl implements UserDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return resultMap;
+		return map;
 	}
 	
 
