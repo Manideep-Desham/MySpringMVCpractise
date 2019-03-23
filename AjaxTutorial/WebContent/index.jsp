@@ -5,28 +5,22 @@
 <script type="text/javascript" src = "js/jQueryFile.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#clickCounter').click(function(){
-				
-			var span_Text = document.getElementById("count").innerText;
-			if(span_Text == ""){
-				var number = 0 ;
-			}
-			else{
-				var number = span_Text;
-			}
+		
+		$('#bttHello').click(function(){
+			var fullname = $('#fullname').val();
 			$.ajax({
 				type:'POST',
-				data: {number:number},
+				data: {fullname:fullname},
 				url:'AjaxController',
 				success : function(result){
-					$('#count').html(result);
-
+					obj = JSON.parse(result);
+					alert(obj.name);
+					$('#result1').html(obj.name + obj.balance);
 				}
 			});
 		});
 		
 	});
-	
 
 
 </script>
@@ -35,12 +29,13 @@
 <title>Ajax tutorial</title>
 </head>
 <body>
-
 <form>
-<input type = "button" value = "click" id = "clickCounter" >
+Name <input type ="text" id = "fullname">
+<input type = "button" value = "Hello" id = "bttHello">
 <br>
+<span id= "result1"></span>
+
 </form>
-<span id= "count"></span>
 
 </body>
 </html>
