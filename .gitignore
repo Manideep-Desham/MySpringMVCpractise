@@ -1,6 +1,5 @@
 # Jave related
 target/**
-*.jar
 *.war
 *.ear
 *.class
